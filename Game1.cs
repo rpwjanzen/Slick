@@ -26,6 +26,8 @@ namespace Slick
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = BoardWidth;
+            graphics.PreferredBackBufferHeight = BoardHeight;
             Content.RootDirectory = "Content";
         }
 
@@ -37,8 +39,13 @@ namespace Slick
         /// </summary>
         protected override void Initialize()
         {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
             var random = new Random(0);
             var board = new Board(BoardWidth, BoardHeight, random);
+
+            var boardView = new BoardView(this, board, spriteBatch);
 
             base.Initialize();
         }
@@ -49,8 +56,6 @@ namespace Slick
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -68,11 +73,10 @@ namespace Slick
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            this.GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }
