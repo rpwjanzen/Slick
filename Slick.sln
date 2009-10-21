@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slick", "Slick.csproj", "{767C4DAB-C312-4742-8A76-0092328A897F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{767C4DAB-C312-4742-8A76-0092328A897F}.Debug|x86.ActiveCfg = Debug|x86
+		{767C4DAB-C312-4742-8A76-0092328A897F}.Debug|x86.Build.0 = Debug|x86
+		{767C4DAB-C312-4742-8A76-0092328A897F}.Release|x86.ActiveCfg = Release|x86
+		{767C4DAB-C312-4742-8A76-0092328A897F}.Release|x86.Build.0 = Release|x86
+		{81620384-8D20-4E8D-9DE4-FE40E34C1CAD}.Debug|x86.ActiveCfg = Debug|x86
+		{81620384-8D20-4E8D-9DE4-FE40E34C1CAD}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
