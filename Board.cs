@@ -7,20 +7,28 @@ using Microsoft.Xna.Framework;
 namespace Slick
 {
     class Cell {
-        public int PlayerOwner { get; private set; }
         public readonly int OilDepth;
         public readonly bool IsWater;
+
+        public Player Owner { get; set; }
         public int DrilledDepth { get; private set; }
+        public int PurchaseCost { get; private set; }
+
+        public int DrillCost(int depth)
+        {
+            return (PurchaseCost / 10) * depth;
+        }
 
         public bool StruckOil {
             get { return DrilledDepth >= OilDepth; }
         }
 
-        public Cell(int playerOwner, int oilDepth, bool isWater, int drilledDepth) {
-            this.PlayerOwner = playerOwner;
+        public Cell(Player playerOwner, int oilDepth, bool isWater, int drilledDepth, int cost) {
+            this.Owner = playerOwner;
             this.OilDepth = oilDepth;
             this.IsWater = isWater;
             this.DrilledDepth = drilledDepth;
+            this.PurchaseCost = cost;
         }
 
         public bool DrillTo(int depth) {
@@ -28,16 +36,18 @@ namespace Slick
             return StruckOil;
         }
 
-        public void Purchase(int playerOwner) {
-            this.PlayerOwner = playerOwner;
+        public bool IsOwner(Player player)
+        {
+            return player == Owner;
         }
     }
 
     class Board
     {
-        public int Width;
-        public int Height;
-        public Cell[,] Cells;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        
+        Cell[,] Cells;
         Random Random;
 
         public Board(int width, int height, Random random)
@@ -56,19 +66,39 @@ namespace Slick
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    Cells[x, y] = new Cell(0, Random.Next(0, 4), Random.NextDouble() > 0.5, 0);
+                    Player owner = null;
+                    var oilDepth = Random.Next(0, 4);
+                    var isWater = Random.NextDouble() > 0.5;
+                    var drilledDepth = 0;
+                    var purchaseCost = Random.Next(100, 1100);
+                    Cells[x, y] = new Cell(owner, oilDepth, isWater, drilledDepth, purchaseCost);
                 }
             }
         }
 
-        public void PurchaseCell(int x, int y, int player)
+        public int PurchaseCost(int x, int y)
         {
-            Cells[x,y].Purchase(player);
+            return Cells[x, y].PurchaseCost;
+        }
+
+        public void PurchaseCell(int x, int y, Player player)
+        {
+            Cells[x,y].Owner = player;
+        }
+
+        public int DrillCost(int x, int y, int depth)
+        {
+            return Cells[x, y].DrillCost(depth);
         }
 
         public bool DrillCell(int x, int y, int depth)
         {
             return Cells[x, y].DrillTo(depth);
+        }
+
+        public bool IsOwner(int x, int y, Player player)
+        {
+            return Cells[x, y].IsOwner(player);
         }
     }
 }
