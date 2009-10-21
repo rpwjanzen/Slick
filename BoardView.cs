@@ -9,21 +9,17 @@ namespace Slick
 {
     class BoardView : DrawableGameComponent
     {
-        Board board;
         SpriteBatch spriteBatch;
         Texture2D image;
-        int screenWidth;
-        int screenHeight;
 
-        public BoardView(Game game, Board board, SpriteBatch spriteBatch, int screenWidth, int screenHeight)
+        public BoardView(Game game, SpriteBatch spriteBatch)
             :base(game)
         {
-            this.screenWidth = screenWidth;
-            this.screenHeight = screenHeight;
-            this.board = board;
             this.spriteBatch = spriteBatch;
             game.Components.Add(this);
         }
+
+        
 
         public override void Initialize()
         {

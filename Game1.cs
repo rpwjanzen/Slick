@@ -20,6 +20,8 @@ namespace Slick
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        NotificationBox notificationBox;
+
         const int BoardWidth = 1280;
         const int BoardHeight = 720;
 
@@ -50,7 +52,11 @@ namespace Slick
             var random = new Random(0);
             var board = new Board(BoardWidth, BoardHeight, random);
 
-            var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
+            var boardView = new BoardView(this, spriteBatch);
+
+            notificationBox = null;
+            var mouseInputHandler = new MouseInputHandler(this);
+            var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, mouseInputHandler, ScreenWidth, ScreenHeight);
 
             base.Initialize();
         }
