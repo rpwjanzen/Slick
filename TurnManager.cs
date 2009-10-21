@@ -29,11 +29,20 @@ namespace Slick
 
         public void BuyLand(int x, int y)
         {
+            CurrentPlayer.Money -= board.PurchaseCost(x, y);
             board.PurchaseCell(x, y, CurrentPlayer);
         }
 
+        /// <summary>
+        /// Drills for oil at given location.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="depth">How deep to drill(0-4)</param>
+        /// <returns>True, if oil was found.</returns>
         public bool DrillLand(int x, int y, int depth)
         {
+            CurrentPlayer.Money -= board.DrillCost(x, y, depth);
             return board.DrillCell(x, y, depth);
         }
 
