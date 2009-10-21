@@ -71,6 +71,7 @@ namespace Slick
                     var isWater = Random.NextDouble() > 0.5;
                     var drilledDepth = 0;
                     var purchaseCost = Random.Next(100, 1100);
+                    if (isWater) purchaseCost *= Random.Next(2, 6);
                     Cells[x, y] = new Cell(owner, oilDepth, isWater, drilledDepth, purchaseCost);
                 }
             }
