@@ -12,10 +12,14 @@ namespace Slick
         Board board;
         SpriteBatch spriteBatch;
         Texture2D image;
+        int screenWidth;
+        int screenHeight;
 
-        public BoardView(Game game, Board board, SpriteBatch spriteBatch)
+        public BoardView(Game game, Board board, SpriteBatch spriteBatch, int screenWidth, int screenHeight)
             :base(game)
         {
+            this.screenWidth = screenWidth;
+            this.screenHeight = screenHeight;
             this.board = board;
             this.spriteBatch = spriteBatch;
             game.Components.Add(this);

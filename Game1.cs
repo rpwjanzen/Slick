@@ -23,11 +23,14 @@ namespace Slick
         const int BoardWidth = 1280;
         const int BoardHeight = 720;
 
+        const int ScreenWidth = 1280;
+        const int ScreenHeight = 720;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = BoardWidth;
-            graphics.PreferredBackBufferHeight = BoardHeight;
+            graphics.PreferredBackBufferWidth = ScreenWidth;
+            graphics.PreferredBackBufferHeight = ScreenHeight;
             Content.RootDirectory = "Content";
         }
 
@@ -39,13 +42,15 @@ namespace Slick
         /// </summary>
         protected override void Initialize()
         {
+            this.IsMouseVisible = true;
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var random = new Random(0);
             var board = new Board(BoardWidth, BoardHeight, random);
 
-            var boardView = new BoardView(this, board, spriteBatch);
+            var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
 
             base.Initialize();
         }
