@@ -7,14 +7,29 @@ using Microsoft.Xna.Framework;
 namespace Slick
 {
     class Cell {
-        int PlayerOwner;
-        int OilDepth;
-        bool IsWater;
+        public int PlayerOwner { get; private set; }
+        public readonly int OilDepth;
+        public readonly bool IsWater;
+        public int DrilledDepth { get; private set; }
 
-        public Cell(int playerOwner, int oilDepth, bool isWater) {
+        public bool StruckOil {
+            get { return DrilledDepth >= OilDepth; }
+        }
+
+        public Cell(int playerOwner, int oilDepth, bool isWater, int drilledDepth) {
             this.PlayerOwner = playerOwner;
             this.OilDepth = oilDepth;
             this.IsWater = isWater;
+            this.DrilledDepth = drilledDepth;
+        }
+
+        public bool DrillTo(int depth) {
+            DrilledDepth = depth;
+            return StruckOil;
+        }
+
+        public void Purchase(int playerOwner) {
+            this.PlayerOwner = playerOwner;
         }
     }
 
@@ -23,7 +38,7 @@ namespace Slick
         public int Width;
         public int Height;
         public Cell[,] Cells;
-        public Random Random;
+        Random Random;
 
         public Board(int width, int height, Random random)
         {
@@ -41,9 +56,19 @@ namespace Slick
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    Cells[x, y] = new Cell(0, Random.Next(0, 4), Random.NextDouble() > 0.5);
+                    Cells[x, y] = new Cell(0, Random.Next(0, 4), Random.NextDouble() > 0.5, 0);
                 }
             }
+        }
+
+        public void PurchaseCell(int x, int y, int player)
+        {
+            Cells[x,y].Purchase(player);
+        }
+
+        public bool DrillCell(int x, int y, int depth)
+        {
+            return Cells[x, y].DrillTo(depth);
         }
     }
 }
