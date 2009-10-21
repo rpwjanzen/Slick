@@ -7,17 +7,18 @@ using Microsoft.Xna.Framework;
 namespace Slick
 {
     class Cell {
-        public int PlayerOwner { get; private set; }
         public readonly int OilDepth;
         public readonly bool IsWater;
+
+        public Player Owner { get; private set; }
         public int DrilledDepth { get; private set; }
 
         public bool StruckOil {
             get { return DrilledDepth >= OilDepth; }
         }
 
-        public Cell(int playerOwner, int oilDepth, bool isWater, int drilledDepth) {
-            this.PlayerOwner = playerOwner;
+        public Cell(Player playerOwner, int oilDepth, bool isWater, int drilledDepth) {
+            this.Owner = playerOwner;
             this.OilDepth = oilDepth;
             this.IsWater = isWater;
             this.DrilledDepth = drilledDepth;
@@ -28,8 +29,13 @@ namespace Slick
             return StruckOil;
         }
 
-        public void Purchase(int playerOwner) {
-            this.PlayerOwner = playerOwner;
+        public void Purchase(Player playerOwner) {
+            this.Owner = playerOwner;
+        }
+
+        public bool IsOwner(Player player)
+        {
+            return player == Owner;
         }
     }
 
@@ -56,12 +62,12 @@ namespace Slick
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    Cells[x, y] = new Cell(0, Random.Next(0, 4), Random.NextDouble() > 0.5, 0);
+                    Cells[x, y] = new Cell(null, Random.Next(0, 4), Random.NextDouble() > 0.5, 0);
                 }
             }
         }
 
-        public void PurchaseCell(int x, int y, int player)
+        public void PurchaseCell(int x, int y, Player player)
         {
             Cells[x,y].Purchase(player);
         }
@@ -69,6 +75,11 @@ namespace Slick
         public bool DrillCell(int x, int y, int depth)
         {
             return Cells[x, y].DrillTo(depth);
+        }
+
+        public bool IsOwner(int x, int y, Player player)
+        {
+            return Cells[x, y].IsOwner(player);
         }
     }
 }
