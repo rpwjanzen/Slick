@@ -16,19 +16,21 @@ namespace Slick
 
         public int DrillCost(int depth)
         {
-            return (PurchaseCost / 10) * depth;
+            return baseDrillCost * depth;
         }
+        int baseDrillCost;
 
         public bool StruckOil {
             get { return DrilledDepth >= OilDepth; }
         }
 
-        public Cell(Player playerOwner, int oilDepth, bool isWater, int drilledDepth, int cost) {
+        public Cell(Player playerOwner, int oilDepth, bool isWater, int drilledDepth, int cost, int baseDrillCost) {
             this.Owner = playerOwner;
             this.OilDepth = oilDepth;
             this.IsWater = isWater;
             this.DrilledDepth = drilledDepth;
             this.PurchaseCost = cost;
+            this.baseDrillCost = baseDrillCost;
         }
 
         public bool DrillTo(int depth) {
@@ -71,8 +73,9 @@ namespace Slick
                     var isWater = Random.NextDouble() > 0.5;
                     var drilledDepth = 0;
                     var purchaseCost = Random.Next(100, 1100);
-                    if (isWater) purchaseCost *= Random.Next(2, 6);
-                    Cells[x, y] = new Cell(owner, oilDepth, isWater, drilledDepth, purchaseCost);
+                    var baseDrillCost = Random.Next(10, purchaseCost / 10);
+                    if (isWater) baseDrillCost *= Random.Next(2, 3);
+                    Cells[x, y] = new Cell(owner, oilDepth, isWater, drilledDepth, purchaseCost, baseDrillCost);
                 }
             }
         }
