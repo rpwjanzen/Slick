@@ -70,7 +70,7 @@ namespace Slick
             var mouseInputHandler = new MouseInputHandler(this);
             var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
 
-            //var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
+            var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
 
             base.Initialize();
         }
