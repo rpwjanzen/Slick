@@ -69,12 +69,13 @@ namespace Slick
                 for (int x = 0; x < Width; x++)
                 {
                     Player owner = null;
-                    var oilDepth = Random.Next(0, 4);
+                    // oilDepts greater than 3 represent no oil
+                    var oilDepth = Random.Next(1, 7);
                     var isWater = Random.NextDouble() > 0.5;
                     var drilledDepth = 0;
-                    var purchaseCost = Random.Next(100, 1100);
+                    var purchaseCost = Random.Next(200, 601);
                     var baseDrillCost = Random.Next(10, purchaseCost / 10);
-                    if (isWater) baseDrillCost *= Random.Next(2, 3);
+                    if (isWater) baseDrillCost *= Random.Next(2, 4);
                     Cells[x, y] = new Cell(owner, oilDepth, isWater, drilledDepth, purchaseCost, baseDrillCost);
                 }
             }

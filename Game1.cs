@@ -20,7 +20,7 @@ namespace Slick
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-		NotificationBox notificationBox;
+		INotificationWindow notificationBox;
 
         const int ScreenWidth = 1280;
         const int ScreenHeight = 720;
@@ -51,7 +51,7 @@ namespace Slick
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var random = new Random(0);
+            var random = new Random();
             var board = new Board(BoardWidth, BoardHeight, random);
 
             var playerList = new[]
@@ -66,15 +66,15 @@ namespace Slick
 
             notificationBox = null;
             var mouseInputHandler = new MouseInputHandler(this);
-            var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
+            var mouseInputBehaviour = new MouseInputBehaviour(this, spriteBatch, notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
 
             var moneyView = new MoneyView(this, turnManager, spriteBatch, playerList);
 
             //var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
 
-            for(int i = 0; i < BoardWidth; i++) {
-                board.Cells[i, 0].Owner = playerList[0];
-            }
+            //for(int i = 0; i < BoardWidth; i++) {
+            //    board.Cells[i, 0].Owner = playerList[0];
+            //}
 
             var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
             Components.Add(boardView);

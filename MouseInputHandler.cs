@@ -11,16 +11,16 @@ namespace Slick
 
     class MouseInputHandler : GameComponent
     {
-        public MouseLocation leftMouseClick;
+        public MouseLocation LeftMouseClick;
 
-        MouseState previousMouseState;
+        MouseState _PreviousMouseState;
 
         public MouseInputHandler(Game game) 
             :base(game)
         {
             game.Components.Add(this);
 
-            previousMouseState = Mouse.GetState();
+            _PreviousMouseState = Mouse.GetState();
         }
 
         public override void Update(GameTime gameTime)
@@ -28,10 +28,10 @@ namespace Slick
             MouseState mouseState = Mouse.GetState();
 
             if (mouseState.LeftButton == ButtonState.Released
-                && previousMouseState.LeftButton == ButtonState.Pressed)
-                leftMouseClick(mouseState.X, mouseState.Y);
+                && _PreviousMouseState.LeftButton == ButtonState.Pressed)
+                LeftMouseClick(mouseState.X, mouseState.Y);
 
-            previousMouseState = mouseState;
+            _PreviousMouseState = mouseState;
 
             base.Update(gameTime);
         }
