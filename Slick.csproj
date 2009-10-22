@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="BoardView.cs" />
+    <Compile Include="MoneyView.cs" />
     <Compile Include="MouseInputBehaviour.cs" />
     <Compile Include="MouseInputHandler.cs" />
     <Compile Include="NotificationBox.cs" />

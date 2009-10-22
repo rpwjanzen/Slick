@@ -34,7 +34,7 @@ namespace Slick
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(texture, new Vector2(boardWidth/2f, boardHeight/2f), turnManager.CurrentPlayer.color);
+            spriteBatch.Draw(texture, new Vector2(boardWidth/2f, boardHeight/2f), turnManager.CurrentPlayer.Color);
 
             base.Draw(gameTime);
         }

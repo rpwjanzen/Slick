@@ -10,13 +10,13 @@ namespace Slick
     {
         public string Name;
         public int Money;
-        public Color color;
+        public Color Color;
 
         public Player(string name, int initialMoney, Color color)
         {
-            this.color = color;
             this.Name = name;
             this.Money = initialMoney;
+            this.Color = color;
         }
     }
 }

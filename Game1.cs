@@ -20,13 +20,13 @@ namespace Slick
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        NotificationBox notificationBox;
-
-        const int BoardWidth = 1280;
-        const int BoardHeight = 720;
+		NotificationBox notificationBox;
 
         const int ScreenWidth = 1280;
         const int ScreenHeight = 720;
+
+        const int BoardWidth = 10;
+        const int BoardHeight = 10;
 
         const int startingMoney = 10000;
 
@@ -54,8 +54,6 @@ namespace Slick
             var random = new Random(0);
             var board = new Board(BoardWidth, BoardHeight, random);
 
-            var boardView = new BoardView(this, spriteBatch);
-
             var playerList = new[]
                 {
                     new Player("Ian", startingMoney, Color.Orange),
@@ -71,6 +69,13 @@ namespace Slick
             var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
 
             var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
+
+            for(int i = 0; i < BoardWidth; i++) {
+                board.Cells[i, 0].Owner = playerList[0];
+            }
+
+            var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
+            Components.Add(boardView);
 
             base.Initialize();
         }
@@ -98,7 +103,8 @@ namespace Slick
 
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.Pink);
+
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
             base.Draw(gameTime);
             spriteBatch.End();

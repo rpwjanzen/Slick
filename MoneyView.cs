@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Slick
 {
-    class MoneyView : GameComponent
+    class MoneyView// : GameComponent
     {
     }
 }
