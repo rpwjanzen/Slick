@@ -6,3 +6,4 @@ Content/bin
 Content/obj
 **/*.cachefile
 *.cachefile
+*.bak

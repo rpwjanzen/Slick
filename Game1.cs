@@ -20,11 +20,15 @@ namespace Slick
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+		NotificationBox notificationBox;
+
         const int ScreenWidth = 1280;
         const int ScreenHeight = 720;
 
         const int BoardWidth = 10;
         const int BoardHeight = 10;
+
+        const int startingMoney = 10000;
 
         public Game1()
         {
@@ -42,20 +46,36 @@ namespace Slick
         /// </summary>
         protected override void Initialize()
         {
+            this.IsMouseVisible = true;
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var random = new Random(0);
             var board = new Board(BoardWidth, BoardHeight, random);
 
-            var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
+            var playerList = new[]
+                {
+                    new Player("Ian", startingMoney, Color.Orange),
+                    new Player("Ryan", startingMoney, Color.DarkBlue),
+                    new Player("Stefan", startingMoney, Color.Pink),
+                    new Player("Jeremy", startingMoney, Color.Green)
+                }.ToList();
 
-            var players = new List<Player>();
-            players.Add(new Player("One", 100000, Color.Red));
+            var turnManager = new TurnManager(board, playerList);
+
+            notificationBox = null;
+            var mouseInputHandler = new MouseInputHandler(this);
+            var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
+
+            //var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
 
             for(int i = 0; i < BoardWidth; i++) {
-                board.Cells[i, 0].Owner = players[0];
+                board.Cells[i, 0].Owner = playerList[0];
             }
+
+            var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
+            Components.Add(boardView);
 
             base.Initialize();
         }

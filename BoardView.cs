@@ -8,7 +8,6 @@ namespace Slick
 {
     class BoardView : DrawableGameComponent
     {
-        Board board;
         SpriteBatch spriteBatch;
 
         Texture2D texture;
@@ -19,13 +18,14 @@ namespace Slick
         int tileWidth;
         int tileHeight;
         readonly Rectangle ScreenRectangle;
+        
+        Board board;
 
         public BoardView(Game game, Board board, SpriteBatch spriteBatch, int screenWidth, int screenHeight)
             :base(game)
         {
             this.board = board;
             this.spriteBatch = spriteBatch;
-            game.Components.Add(this);
 
             tileWidth = screenWidth / board.Width;
             tileHeight = screenHeight / board.Height;
