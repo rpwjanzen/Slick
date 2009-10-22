@@ -20,14 +20,17 @@ namespace Slick
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        const int BoardWidth = 1280;
-        const int BoardHeight = 720;
+        const int ScreenWidth = 1280;
+        const int ScreenHeight = 720;
+
+        const int BoardWidth = 10;
+        const int BoardHeight = 10;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = BoardWidth;
-            graphics.PreferredBackBufferHeight = BoardHeight;
+            graphics.PreferredBackBufferWidth = ScreenWidth;
+            graphics.PreferredBackBufferHeight = ScreenHeight;
             Content.RootDirectory = "Content";
         }
 
@@ -45,7 +48,14 @@ namespace Slick
             var random = new Random(0);
             var board = new Board(BoardWidth, BoardHeight, random);
 
-            var boardView = new BoardView(this, board, spriteBatch);
+            var boardView = new BoardView(this, board, spriteBatch, ScreenWidth, ScreenHeight);
+
+            var players = new List<Player>();
+            players.Add(new Player("One", 100000, Color.Red));
+
+            for(int i = 0; i < BoardWidth; i++) {
+                board.Cells[i, 0].Owner = players[0];
+            }
 
             base.Initialize();
         }
@@ -73,7 +83,8 @@ namespace Slick
 
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.Pink);
+
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
             base.Draw(gameTime);
             spriteBatch.End();

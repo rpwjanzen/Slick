@@ -49,7 +49,7 @@ namespace Slick
         public int Width { get; private set; }
         public int Height { get; private set; }
         
-        Cell[,] Cells;
+        public Cell[,] Cells;
         Random Random;
 
         public Board(int width, int height, Random random)
