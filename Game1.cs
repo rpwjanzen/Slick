@@ -56,9 +56,9 @@ namespace Slick
 
             var playerList = new[]
                 {
-                    new Player("Ian", startingMoney, Color.Orange),
-                    new Player("Ryan", startingMoney, Color.DarkBlue),
-                    new Player("Stefan", startingMoney, Color.Pink),
+                    new Player("Ian", startingMoney, Color.Red),
+                    new Player("Ryan", startingMoney, Color.Blue),
+                    new Player("Stefan", startingMoney, Color.Yellow),
                     new Player("Jeremy", startingMoney, Color.Green)
                 }.ToList();
 
@@ -68,7 +68,9 @@ namespace Slick
             var mouseInputHandler = new MouseInputHandler(this);
             var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
 
-            var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
+            var moneyView = new MoneyView(this, turnManager, spriteBatch, playerList);
+
+            //var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
 
             for(int i = 0; i < BoardWidth; i++) {
                 board.Cells[i, 0].Owner = playerList[0];
