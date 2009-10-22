@@ -19,8 +19,6 @@ namespace Slick
             game.Components.Add(this);
         }
 
-        
-
         public override void Initialize()
         {
             image = Game.Content.Load<Texture2D>(@"Map");
@@ -30,7 +28,7 @@ namespace Slick
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(image, Vector2.Zero, Color.White);
+            spriteBatch.Draw(image, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
             base.Draw(gameTime);
         }

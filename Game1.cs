@@ -28,6 +28,8 @@ namespace Slick
         const int ScreenWidth = 1280;
         const int ScreenHeight = 720;
 
+        const int startingMoney = 10000;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,9 +56,21 @@ namespace Slick
 
             var boardView = new BoardView(this, spriteBatch);
 
+            var playerList = new[]
+                {
+                    new Player("Ian", startingMoney, Color.Orange),
+                    new Player("Ryan", startingMoney, Color.DarkBlue),
+                    new Player("Stefan", startingMoney, Color.Pink),
+                    new Player("Jeremy", startingMoney, Color.Green)
+                }.ToList();
+
+            var turnManager = new TurnManager(board, playerList);
+
             notificationBox = null;
             var mouseInputHandler = new MouseInputHandler(this);
-            var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, mouseInputHandler, ScreenWidth, ScreenHeight);
+            var mouseInputBehaviour = new MouseInputBehaviour(notificationBox, board, turnManager, mouseInputHandler, ScreenWidth, ScreenHeight);
+
+            //var turnIndicatorView = new TurnIndicatorView(this, spriteBatch, turnManager, BoardWidth, BoardHeight);
 
             base.Initialize();
         }

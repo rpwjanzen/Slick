@@ -31,6 +31,7 @@ namespace Slick
         {
             CurrentPlayer.Money -= board.PurchaseCost(x, y);
             board.PurchaseCell(x, y, CurrentPlayer);
+            NextTurn();
         }
 
         /// <summary>
@@ -38,15 +39,16 @@ namespace Slick
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="depth">How deep to drill(0-4)</param>
+        /// <param name="depth">How deep to drill(1-3)</param>
         /// <returns>True, if oil was found.</returns>
         public bool DrillLand(int x, int y, int depth)
         {
             CurrentPlayer.Money -= board.DrillCost(x, y, depth);
+            NextTurn();
             return board.DrillCell(x, y, depth);
         }
 
-        public void NextTurn()
+        private void NextTurn()
         {
             currentPlayerIndex++;
             currentPlayerIndex %= Players.Count;
